@@ -448,8 +448,12 @@ LeaderOrderRequest(i, v) ==
     /\ state[i] = Leader
     /\ v \in pendingRequests[i] \* Leader must have received the multicast
     /\ LET entryTerm == currentTerm[i]
-           entry == [term |-> entryTerm, value |-> v] \* Entry contains metadata (term, value=request_id)
-           \* Check if this exact value (request ID) is already *ordered* in the log
+           \* New entry structure: term, value (as ID), payload (actual data)
+           \* Here, 'v' (from Value set) serves as both the ID for 'value' field
+           \* and the content for 'payload' field.
+           entry == [term |-> entryTerm, value |-> v, payload |-> v] 
+           \* Check if this exact value (request ID, which is 'v') is already *ordered* in the log
+           \* by looking at the '.value' field of existing log entries.
            alreadyOrdered == \E idx \in DOMAIN log[i] : log[i][idx].value = v
            newLog == IF alreadyOrdered THEN log[i] ELSE Append(log[i], entry)
            newEntryIndex == IF alreadyOrdered THEN 0 ELSE Len(log[i]) + 1 \* 0 if not new
@@ -463,7 +467,7 @@ LeaderOrderRequest(i, v) ==
               THEN entryCommitStats @@ (newEntryKey :> [ sentCount |-> 0, ackCount |-> 0, committed |-> FALSE ])
               ELSE entryCommitStats
         /\ UNCHANGED <<messages, serverVars, candidateVars, leaderVars, commitIndex,
-                       maxc, leaderCount, missingRequests>> \* maxc already incremented by ClientMulticast
+                       maxc, leaderCount, missingRequests>> \* maxc already incremented previously
 
 
 
@@ -549,10 +553,13 @@ HandleAppendEntriesRequest(i, j, m) ==
             /\ newState = Follower \* Must be follower to accept
             /\ logOk
             /\ LET index == m.mprevLogIndex + 1
-               IN \/ \* Heartbeat or already have this exact entry
-                     /\ \/ m.mentries = << >>
+               IN \/ \* Heartbeat or already have this exact entry (now [term, value, payload])
+                     /\ \/ m.mentries = << >> \* Heartbeat
                         \/ /\ Len(log[i]) >= index
-                           /\ log[i][index] = m.mentries[1] \* Compare full metadata entry
+                           /\ log[i][index].term = m.mentries[1].term   \* Compare term
+                           /\ log[i][index].value = m.mentries[1].value \* Compare value (ID)
+                           \* Assuming if term and value (ID) match, the payload also matches.
+                           \* If payload could differ for same term/ID, add: /\ log[i][index].payload = m.mentries[1].payload
                      /\ commitIndex' = [commitIndex EXCEPT ![i] = m.mcommitIndex]
                      /\ Reply([mtype           |-> AppendEntriesResponse,
                                mterm           |-> currentTerm[i],
@@ -560,76 +567,74 @@ HandleAppendEntriesRequest(i, j, m) ==
                                mmatchIndex     |-> m.mprevLogIndex + Len(m.mentries),
                                msource         |-> i,
                                mdest           |-> j], m)
-                     /\ UNCHANGED <<serverVars, log, pendingRequests, missingRequests>> \* pendingRequests is UNCHANGED here
-                  \/ \* Conflict: remove entries (same logic as before)
+                     /\ UNCHANGED <<serverVars, log, pendingRequests, missingRequests>>
+                  \/ \* Conflict: remove entries (term mismatch for the same index)
                      /\ m.mentries /= << >>
                      /\ Len(log[i]) >= index
                      /\ log[i][index].term /= m.mentries[1].term
                      /\ LET newLog == SubSeq(log[i], 1, index - 1)
                         IN log' = [log EXCEPT ![i] = newLog]
-                     \* Reply implicitly handled by leader retry on failure (no Reply action here)
-                     /\ UNCHANGED <<serverVars, commitIndex, messages, pendingRequests, missingRequests>> \* pendingRequests is UNCHANGED here
-                  \/ \* Append new entry: Check for payload before appending
+                     /\ UNCHANGED <<serverVars, commitIndex, messages, pendingRequests, missingRequests>>
+                  \/ \* Append new entry: Check for payload (identified by 'value' field) before appending
                      /\ m.mentries /= << >>
-                     /\ Len(log[i]) = m.mprevLogIndex
-                     /\ LET entryMetadata == m.mentries[1]
-                           payloadValue == entryMetadata.value
-                        IN \/ \* Payload IS available
-                              /\ payloadValue \in pendingRequests[i] \* Condition
-                              /\ log' = [log EXCEPT ![i] = Append(log[i], entryMetadata)] \* Update
-                              /\ pendingRequests' = [pendingRequests EXCEPT ![i] = pendingRequests[i] \ {payloadValue}] \* Update
-                              /\ commitIndex' = [commitIndex EXCEPT ![i] = m.mcommitIndex] \* Update
-                              /\ Reply([mtype           |-> AppendEntriesResponse, \* Update (messages')
+                     /\ Len(log[i]) = m.mprevLogIndex \* This is the point to append a new entry
+                     /\ LET receivedEntry == m.mentries[1]      \* This is [term, value, payload]
+                           requestId == receivedEntry.value     \* This is the ID used for matching pendingRequests
+                        IN \/ \* Payload IS available (identified by requestId in pendingRequests)
+                              /\ requestId \in pendingRequests[i] \* Condition
+                              /\ log' = [log EXCEPT ![i] = Append(log[i], receivedEntry)] \* Append the full [term,value,payload] record
+                              /\ pendingRequests' = [pendingRequests EXCEPT ![i] = pendingRequests[i] \ {requestId}] \* Remove raw payload from buffer by ID
+                              /\ commitIndex' = [commitIndex EXCEPT ![i] = m.mcommitIndex]
+                              /\ Reply([mtype           |-> AppendEntriesResponse,
                                         mterm           |-> currentTerm[i],
                                         msuccess        |-> TRUE,
                                         mmatchIndex     |-> index,
                                         msource         |-> i,
                                         mdest           |-> j], m)
-                              /\ UNCHANGED <<serverVars, missingRequests>> \* Update (others)
+                              /\ UNCHANGED <<serverVars, missingRequests>>
 
                            \/ \* Payload is MISSING
-                              /\ payloadValue \notin pendingRequests[i] \* Condition
-                              /\ Reply([mtype           |-> AppendEntriesResponse, \* Update (messages') - Always reply FALSE if missing
+                              /\ requestId \notin pendingRequests[i] \* Condition
+                              /\ Reply([mtype           |-> AppendEntriesResponse,
                                         mterm           |-> currentTerm[i],
                                         msuccess        |-> FALSE,
                                         mmatchIndex     |-> m.mprevLogIndex,
                                         msource         |-> i,
                                         mdest           |-> j], m)
-                              /\ IF payloadValue \notin missingRequests[i] \* Condition for *specific* updates when missing
-                                 THEN /\ SendRecoveryRequest(i, j, payloadValue) \* Update (messages' again)
-                                      /\ missingRequests' = [missingRequests EXCEPT ![i] = missingRequests[i] \cup {payloadValue}] \* Update (missingRequests')
-                                 ELSE /\ UNCHANGED <<messages, missingRequests>> \* Update (no change to these if already requested)
-                              /\ UNCHANGED <<serverVars, log, commitIndex, pendingRequests>> \* pendingRequests is UNCHANGED here
+                              /\ IF requestId \notin missingRequests[i]
+                                 THEN /\ SendRecoveryRequest(i, j, requestId) \* Request recovery using the ID
+                                      /\ missingRequests' = [missingRequests EXCEPT ![i] = missingRequests[i] \cup {requestId}]
+                                 ELSE /\ UNCHANGED <<messages, missingRequests>>
+                              /\ UNCHANGED <<serverVars, log, commitIndex, pendingRequests>>
 
     IN /\ m.mterm <= currentTerm[i]  \* Overall precondition
        /\ ( \* Start of main disjunction for handling paths
              \/ /\ \* Path 1: Reject request
-                   ( \/ m.mterm < currentTerm[i]  \* Guard condition 1 for rejection
-                     \/ /\ m.mterm = currentTerm[i] \* Guard condition 2 for rejection
+                   ( \/ m.mterm < currentTerm[i]
+                     \/ /\ m.mterm = currentTerm[i]
                         /\ state[i] = Follower
                         /\ \lnot logOk
-                   ) \* End of rejection guard condition
-                   /\ Reply([mtype           |-> AppendEntriesResponse, \* Action if rejected
+                   )
+                   /\ Reply([mtype           |-> AppendEntriesResponse,
                              mterm           |-> currentTerm[i],
                              msuccess        |-> FALSE,
                              mmatchIndex     |-> 0,
                              msource         |-> i,
                              mdest           |-> j], m)
-                   /\ UNCHANGED <<serverVars, logVars, pendingRequests, missingRequests>> \* State if rejected and pendingRequests is UNCHANGED here
+                   /\ UNCHANGED <<serverVars, logVars, pendingRequests, missingRequests>>
 
              \/ /\ \* Path 2: Step down if candidate
                    m.mterm = currentTerm[i]
                    /\ state[i] = Candidate
-                   /\ state' = [state EXCEPT ![i] = Follower] \* Action if stepping down
-                   /\ UNCHANGED <<currentTerm, votedFor, logVars, messages, pendingRequests, missingRequests>> \* State if stepping down and pendingRequests is UNCHANGED here
+                   /\ state' = [state EXCEPT ![i] = Follower]
+                   /\ UNCHANGED <<currentTerm, votedFor, logVars, messages, pendingRequests, missingRequests>>
 
              \/ /\ \* Path 3: Accept request (or trigger recovery)
-                   acceptRequestLogic(state[i]) \* This LET definition contains the complex logic for accepting/recovering
-                   /\ UNCHANGED <<candidateVars, leaderVars>> \* acceptRequestLogic handles relevant state changes, these vars not involved
+                   acceptRequestLogic(state[i])
+                   /\ UNCHANGED <<candidateVars, leaderVars>>
 
-          ) \* End of main disjunction
-       /\ UNCHANGED <<instrumentationVars>> \* entryCommitStats unchanged on followers generally
-
+          )
+       /\ UNCHANGED <<instrumentationVars>>
 
 \* Leader i handles RecoveryRequest for value v from follower j
 \* Leader checks its *log* to see if it has ordered this value.
