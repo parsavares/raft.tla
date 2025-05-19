@@ -23,7 +23,7 @@ Node == Server \union {Switch}
 
 \* The set of client requests that can go into the log
 CONSTANTS Value
-
+ 
 \* Server states.
 CONSTANTS Follower, Candidate, Leader
 
@@ -39,11 +39,11 @@ CONSTANTS RequestVoteRequest, RequestVoteResponse,
 \* for instrumentation to limit model state space
 CONSTANTS MaxClientRequests 
 
-\* Maximum times a server can become a leader
+\* Maximum times a server can become a leader 
 CONSTANTS MaxBecomeLeader
 
 \* Maximum term number allowed in the model
-CONSTANTS MaxTerm
+CONSTANTS MaxTerm 
 
 \* Global variables
 
@@ -495,27 +495,27 @@ ClientRequest(i, v) ==
 \* Modified. Leader i sends j an AppendEntries request containing exactly 1 entry. It was up to 1 entry.
 \* While implementations may want to send more than 1 at a time, this spec uses
 \* just 1 because it minimizes atomic regions without loss of generality.
-\* --- HovercRaft Change: AppendEntries sends metadata only ---
-\* Leader i sends j an AppendEntries request containing exactly 1 *metadata* entry.
+\* --- HovercRaft Change: AppendEntries sends metadata only (term and value/ID) ---
 AppendEntries(i, j) ==
     /\ i /= j
     /\ state[i] = Leader
     /\ Len(log[i]) > 0
     /\ nextIndex[i][j] <= Len(log[i])
-    \* /\ matchIndex[i][j] < nextIndex[i][j] \* Original condition - can remove or keep, depends on retry logic desired. Let's keep it simple for now.
     /\ LET entryIndex == nextIndex[i][j]
-           entryMetadata == log[i][entryIndex] \* This is [term |-> t, value |-> v]
-           entries == << entryMetadata >> \* Send only the metadata entry
-           entryKey == <<entryIndex, entryMetadata.term>>
+           fullLogEntry == log[i][entryIndex] \* This is [term |-> t, value |-> v, payload |-> v]
+           \* Create a metadata-only reference to send, excluding the payload.
+           metadataReference == [term |-> fullLogEntry.term, value |-> fullLogEntry.value]
+           entriesToSend == << metadataReference >> \* Send only [term, value]
+           entryKey == <<entryIndex, fullLogEntry.term>>
            prevLogIndex == entryIndex - 1
            prevLogTerm == IF prevLogIndex > 0 THEN log[i][prevLogIndex].term ELSE 0
        IN Send([mtype          |-> AppendEntriesRequest,
                 mterm          |-> currentTerm[i],
                 mprevLogIndex  |-> prevLogIndex,
                 mprevLogTerm   |-> prevLogTerm,
-                mentries       |-> entries,       \* Metadata only
-                mlog           |-> log[i],        \* Keep for history variable/proofs if needed
-                mcommitIndex   |-> Min({commitIndex[i], entryIndex -1 }), \* Commit up to previous entry
+                mentries       |-> entriesToSend,   \* NOW SENDS ONLY [term, value]
+                mlog           |-> log[i],          \* Keep full log for history/proofs if needed
+                mcommitIndex   |-> Min({commitIndex[i], entryIndex -1 }),
                 msource        |-> i,
                 mdest          |-> j])
        /\ entryCommitStats' =
@@ -523,8 +523,7 @@ AppendEntries(i, j) ==
             THEN [entryCommitStats EXCEPT ![entryKey].sentCount = @ + 1]
             ELSE entryCommitStats
     /\ UNCHANGED <<serverVars, candidateVars, leaderVars, logVars, maxc, leaderCount,
-                   pendingRequests, missingRequests>> \* pendingRequests is UNCHANGED here
-
+                   pendingRequests, missingRequests>> 
 
 \* --- HovercRaft Actions: Recovery Mechanism (Helper Action) ---
 \* Note: This is defined separately for clarity but used within HandleAppendEntriesRequest
@@ -539,10 +538,8 @@ SendRecoveryRequest(i, j, v) ==
 
 
 \* Server i receives an AppendEntries request from server j with
-\* m.mterm <= currentTerm[i]. This just handles m.entries of length 0 or 1, but
-\* implementations could safely accept more by treating them the same as
-\* multiple independent requests of 1 entry.
-\* --- HovercRaft Change: HandleAppendEntriesRequest checks pendingRequests ---
+\* m.mterm <= currentTerm[i]. 
+\* --- HovercRaft Change: Handles metadata-only entries and reconstructs full entry from cache ---
 HandleAppendEntriesRequest(i, j, m) ==
     LET logOk == \/ m.mprevLogIndex = 0
                  \/ /\ m.mprevLogIndex > 0
@@ -553,13 +550,22 @@ HandleAppendEntriesRequest(i, j, m) ==
             /\ newState = Follower \* Must be follower to accept
             /\ logOk
             /\ LET index == m.mprevLogIndex + 1
-               IN \/ \* Heartbeat or already have this exact entry (now [term, value, payload])
-                     /\ \/ m.mentries = << >> \* Heartbeat
-                        \/ /\ Len(log[i]) >= index
-                           /\ log[i][index].term = m.mentries[1].term   \* Compare term
-                           /\ log[i][index].value = m.mentries[1].value \* Compare value (ID)
-                           \* Assuming if term and value (ID) match, the payload also matches.
-                           \* If payload could differ for same term/ID, add: /\ log[i][index].payload = m.mentries[1].payload
+               IN \/ \* Heartbeat (empty entries)
+                     /\ m.mentries = << >> 
+                     /\ commitIndex' = [commitIndex EXCEPT ![i] = m.mcommitIndex]
+                     /\ Reply([mtype           |-> AppendEntriesResponse,
+                               mterm           |-> currentTerm[i],
+                               msuccess        |-> TRUE,
+                               mmatchIndex     |-> m.mprevLogIndex + Len(m.mentries), \* which is m.mprevLogIndex for heartbeat
+                               msource         |-> i,
+                               mdest           |-> j], m)
+                     /\ UNCHANGED <<serverVars, log, pendingRequests, missingRequests>>
+                  \/ \* Already have this exact entry (check based on term and value/ID from leader's metadata)
+                     /\ m.mentries /= << >>
+                     /\ Len(log[i]) >= index
+                     /\ LET receivedMetadata == m.mentries[1] \* This is [term, value] from leader
+                        IN  /\ log[i][index].term = receivedMetadata.term
+                            /\ log[i][index].value = receivedMetadata.value 
                      /\ commitIndex' = [commitIndex EXCEPT ![i] = m.mcommitIndex]
                      /\ Reply([mtype           |-> AppendEntriesResponse,
                                mterm           |-> currentTerm[i],
@@ -571,45 +577,50 @@ HandleAppendEntriesRequest(i, j, m) ==
                   \/ \* Conflict: remove entries (term mismatch for the same index)
                      /\ m.mentries /= << >>
                      /\ Len(log[i]) >= index
-                     /\ log[i][index].term /= m.mentries[1].term
+                     /\ LET receivedMetadata == m.mentries[1] \* This is [term, value] from leader
+                        IN log[i][index].term /= receivedMetadata.term
                      /\ LET newLog == SubSeq(log[i], 1, index - 1)
                         IN log' = [log EXCEPT ![i] = newLog]
                      /\ UNCHANGED <<serverVars, commitIndex, messages, pendingRequests, missingRequests>>
-                  \/ \* Append new entry: Check for payload (identified by 'value' field) before appending
+                  \/ \* Append new entry: Follower reconstructs full entry using cached payload
                      /\ m.mentries /= << >>
                      /\ Len(log[i]) = m.mprevLogIndex \* This is the point to append a new entry
-                     /\ LET receivedEntry == m.mentries[1]      \* This is [term, value, payload]
-                           requestId == receivedEntry.value     \* This is the ID used for matching pendingRequests
-                        IN \/ \* Payload IS available (identified by requestId in pendingRequests)
-                              /\ requestId \in pendingRequests[i] \* Condition
-                              /\ log' = [log EXCEPT ![i] = Append(log[i], receivedEntry)] \* Append the full [term,value,payload] record
-                              /\ pendingRequests' = [pendingRequests EXCEPT ![i] = pendingRequests[i] \ {requestId}] \* Remove raw payload from buffer by ID
-                              /\ commitIndex' = [commitIndex EXCEPT ![i] = m.mcommitIndex]
-                              /\ Reply([mtype           |-> AppendEntriesResponse,
-                                        mterm           |-> currentTerm[i],
-                                        msuccess        |-> TRUE,
-                                        mmatchIndex     |-> index,
-                                        msource         |-> i,
-                                        mdest           |-> j], m)
-                              /\ UNCHANGED <<serverVars, missingRequests>>
-
-                           \/ \* Payload is MISSING
+                     /\ LET receivedMetadata == m.mentries[1]      \* This is [term, value] from leader
+                           requestId == receivedMetadata.value     \* This is the ID (v from Value set)
+                        IN \/ \* Payload IS available in follower's cache (pendingRequests)
+                              /\ requestId \in pendingRequests[i] \* Condition: follower has the raw payload
+                              /\ LET actualPayload == requestId \* Since pendingRequests stores 'v' which is payload
+                                     fullEntryToLog == [term    |-> receivedMetadata.term,
+                                                        value   |-> requestId,
+                                                        payload |-> actualPayload]
+                                 IN /\ log' = [log EXCEPT ![i] = Append(log[i], fullEntryToLog)] \* Append reconstructed entry
+                                    /\ pendingRequests' = [pendingRequests EXCEPT ![i] = pendingRequests[i] \ {requestId}] \* Remove raw payload
+                                    /\ commitIndex' = [commitIndex EXCEPT ![i] = m.mcommitIndex]
+                                    /\ Reply([mtype           |-> AppendEntriesResponse,
+                                              mterm           |-> currentTerm[i],
+                                              msuccess        |-> TRUE,
+                                              mmatchIndex     |-> index,
+                                              msource         |-> i,
+                                              mdest           |-> j], m)
+                                    /\ UNCHANGED <<serverVars, missingRequests>>
+    
+                           \/ \* Payload is MISSING from follower's cache
                               /\ requestId \notin pendingRequests[i] \* Condition
                               /\ Reply([mtype           |-> AppendEntriesResponse,
                                         mterm           |-> currentTerm[i],
                                         msuccess        |-> FALSE,
-                                        mmatchIndex     |-> m.mprevLogIndex,
+                                        mmatchIndex     |-> m.mprevLogIndex, \* Important: matchIndex does not advance
                                         msource         |-> i,
                                         mdest           |-> j], m)
                               /\ IF requestId \notin missingRequests[i]
-                                 THEN /\ SendRecoveryRequest(i, j, requestId) \* Request recovery using the ID
+                                 THEN /\ SendRecoveryRequest(i, j, requestId) 
                                       /\ missingRequests' = [missingRequests EXCEPT ![i] = missingRequests[i] \cup {requestId}]
                                  ELSE /\ UNCHANGED <<messages, missingRequests>>
                               /\ UNCHANGED <<serverVars, log, commitIndex, pendingRequests>>
 
-    IN /\ m.mterm <= currentTerm[i]  \* Overall precondition
+    IN /\ m.mterm <= currentTerm[i]
        /\ ( \* Start of main disjunction for handling paths
-             \/ /\ \* Path 1: Reject request
+             \/ /\ \* Path 1: Reject request (stale term or log not OK)
                    ( \/ m.mterm < currentTerm[i]
                      \/ /\ m.mterm = currentTerm[i]
                         /\ state[i] = Follower
@@ -618,7 +629,7 @@ HandleAppendEntriesRequest(i, j, m) ==
                    /\ Reply([mtype           |-> AppendEntriesResponse,
                              mterm           |-> currentTerm[i],
                              msuccess        |-> FALSE,
-                             mmatchIndex     |-> 0,
+                             mmatchIndex     |-> 0, 
                              msource         |-> i,
                              mdest           |-> j], m)
                    /\ UNCHANGED <<serverVars, logVars, pendingRequests, missingRequests>>
@@ -626,13 +637,12 @@ HandleAppendEntriesRequest(i, j, m) ==
              \/ /\ \* Path 2: Step down if candidate
                    m.mterm = currentTerm[i]
                    /\ state[i] = Candidate
-                   /\ state' = [state EXCEPT ![i] = Follower]
+                   /\ state' = [state EXCEPT ![i] = Follower] 
                    /\ UNCHANGED <<currentTerm, votedFor, logVars, messages, pendingRequests, missingRequests>>
 
              \/ /\ \* Path 3: Accept request (or trigger recovery)
                    acceptRequestLogic(state[i])
                    /\ UNCHANGED <<candidateVars, leaderVars>>
-
           )
        /\ UNCHANGED <<instrumentationVars>>
 
