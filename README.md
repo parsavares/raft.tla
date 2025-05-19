@@ -143,6 +143,48 @@ This change ensures that the model's behavior, particularly the content of the r
 
 The core HovercRaft data flow (Client -> Switch -> Server Buffers -> Leader Orders -> Replication) remains consistent, with the main adaptation being this more explicit log entry format. The model has been successfully checked with TLC using `MySpec`, and the generated traces confirm this behavior.
 
+## Project Update: HovercRaft TLA+ Model - [19/05/2025]
+
+This commit finalizes the implementation of the HovercRaft protocol extensions to the base Raft TLA+ model. The model now strictly adheres to the requirement that leaders replicate only metadata references, with followers retrieving payloads from their local cache to construct full log entries. All core and bonus requirements have been addressed.
+
+### Core HovercRaft Implementation ("Strict Metadata Replication"):
+
+The model implements the following key aspects of HovercRaft:
+
+1.  **Switch Component (`Switch` constant):**
+    *   Clients send raw request payloads (`Value` `v`) to the Switch component (`SwitchClientRequest` action).
+    *   The Switch buffers these raw payloads in `pendingRequests[Switch]`.
+    *   The Switch disseminates these raw request payloads (`v`) to all Raft servers (Leader and Followers), populating their respective `pendingRequests` buffers (`SwitchDisseminate` action). This fulfills the requirement for simultaneous payload delivery to all nodes.
+
+2.  **Leader-Driven Ordering & Metadata-Only Replication:**
+    *   The Leader selects a raw payload `v` (which serves as both ID and payload content in this model) from its `pendingRequests` buffer.
+    *   The Leader creates and stores a full log entry `[term |-> T, value |-> v, payload |-> v]` in its *local log*.
+    *   **Crucially, when sending `AppendEntriesRequest` messages (`AppendEntries` action), the leader now sends only a metadata reference `[term |-> T, value |-> v]` in the `mentries` field. The `payload` field itself is not included in this replication message.** This strictly fulfills the requirement: "The leader node is only responsible for ordering requests by sending fixed-size metadata messages (referencing the client request) to followers, not the full request payload."
+
+3.  **Follower Payload Caching, Matching, and Log Construction:**
+    *   Followers temporarily store the unordered raw payloads (`v`) received via the Switch in their `pendingRequests[follower_id]` cache.
+    *   When a Follower receives an `AppendEntriesRequest` containing the metadata reference `[term |-> T, value |-> v_id]` from the Leader:
+        *   It uses `v_id` to check its `pendingRequests` cache.
+        *   If the payload (`v_id`) is found in the cache, the Follower **retrieves** this payload and **constructs** the full log entry `[term |-> T, value |-> v_id, payload |-> retrieved_payload]` for its own log.
+        *   The corresponding raw payload is then removed from `pendingRequests`.
+    *   This fulfills the requirements: "Followers must temporarily store unordered client requests... and match them with the ordering metadata received from the leader," and aligns with the feedback "follower has some cache to check it and retrieve payload to be added to the log."
+
+4.  **Bonus Requirement: Payload Recovery Mechanism:**
+    *   A recovery mechanism (`RecoveryRequest`, `RecoveryResponse` messages and associated handler actions) is implemented.
+    *   If a follower receives ordering metadata from the leader but finds the corresponding payload ID missing from its `pendingRequests` cache (simulating an unreliable multicast), it sends a `RecoveryRequest` for that payload ID to the leader.
+    *   The leader, if it has the ordered entry, responds with the payload ID (which is the payload content in this model).
+    *   The follower then adds the recovered payload ID to its `pendingRequests` cache, enabling it to process the entry on a subsequent `AppendEntries` attempt.
+    *   This fulfills: "A recovery mechanism... must exist for followers to fetch missing client requests... from the leader..."
+
+**Verification:**
+
+The model has been successfully checked with TLC using the `MySpec` configuration. The generated traces confirm:
+*   The Switch correctly disseminates raw payloads.
+*   The leader's `AppendEntries` messages contain only `[term, value]` in the `mentries` field.
+*   Followers correctly use their `pendingRequests` cache to find the payload and then construct and log the full `[term, value, payload]` entry.
+*   The fundamental Raft safety invariants hold.
+
+This implementation ensures a clear separation of payload delivery (via the Switch) and the leader's metadata-based ordering process, with followers actively using their cached payloads.
 
 ## Contributor
 *   **ovidiu-cristian**
