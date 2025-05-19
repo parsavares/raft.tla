@@ -1,2 +1,3 @@
 # ignore the toolbox directory anywhere in the repo
 *.toolbox
+/raftModelPerf_switch.toolbox

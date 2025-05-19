@@ -38,7 +38,7 @@
         <listEntry value="1EntryCommitAckQuorumInv"/>
     </listAttribute>
     <listAttribute key="modelCorrectnessProperties"/>
-    <intAttribute key="modelEditorOpenTabs" value="10"/>
+    <intAttribute key="modelEditorOpenTabs" value="8"/>
     <stringAttribute key="modelExpressionEval" value=""/>
     <stringAttribute key="modelParameterActionConstraint" value=""/>
     <listAttribute key="modelParameterConstants">
