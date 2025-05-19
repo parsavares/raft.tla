@@ -986,3 +986,5 @@ LeaderCommitted ==
 /\  votesResponded = [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
 
 *)
+=============================================================================
+\* Created by Ovidiu-Cristian Marcu
