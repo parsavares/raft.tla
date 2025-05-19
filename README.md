@@ -90,7 +90,59 @@ Here's a breakdown of the significant changes made to the original Raft TLA+ fil
 6.  **Analyze:** Check results. No errors on `MySpec` (with safety invariants) indicates success. Violation of `MaxCInvariantForSwitchTest` on `SpecAddSwitch` is expected.
 ![image](https://github.com/user-attachments/assets/e98ac05e-f675-4ecf-9e12-72a617450fb1)
 ![image](https://github.com/user-attachments/assets/b2a5b0ad-f105-442a-ac1b-ecbbb4e08e3c)
-![Uploading image.png…]()
+
+## Project Update: HovercRaft TLA+ Model - [19/05/2025]
+
+This commit finalizes the implementation of the HovercRaft protocol extensions to the base Raft TLA+ model, focusing on the introduction of an explicit Switch component and a specific log entry structure as discussed.
+
+### Core HovercRaft Implementation:
+
+The model implements the following key aspects of HovercRaft:
+
+1.  **Switch Component (`Switch` constant):**
+    *   Clients send requests (`Value` `v`) to the Switch component (`SwitchClientRequest` action).
+    *   The Switch buffers these raw requests in `pendingRequests[Switch]`.
+    *   The Switch disseminates these raw request payloads (`v`) to all Raft servers (Leader and Followers), populating their `pendingRequests` buffers (`SwitchDisseminate` action).
+
+2.  **Leader-Driven Ordering with Metadata:**
+    *   The Leader selects a raw request `v` from its own `pendingRequests` buffer.
+    *   It then creates a structured log entry.
+
+3.  **Follower Payload Matching:**
+    *   Followers maintain their `pendingRequests` buffer with raw payloads received from the Switch.
+    *   When a Follower receives an `AppendEntriesRequest` from the Leader containing an ordered log entry, it uses the `value` field (acting as the request ID) from the leader's entry to match against its buffered raw payloads in `pendingRequests`.
+    *   If a match is found, the Follower appends the full, structured log entry to its own log and removes the corresponding raw payload from its `pendingRequests`.
+
+4.  **Payload Recovery:**
+    *   A recovery mechanism (`RecoveryRequest`, `RecoveryResponse` messages and handlers) allows followers to fetch missing raw payloads (identified by their `Value`) from the leader if they were missed during the initial Switch dissemination.
+
+### Key Change: Log Entry Structure (Alignment with Professor's Example)
+
+Compared to the previous checkpoint (where log entries were `[term |-> T, value |-> V]`), the primary change in this version is the **modification of the Raft log entry structure to explicitly include a `payload` field**, as per the professor's example trace.
+
+*   **Previous Log Entry Structure (in `LeaderOrderRequest`):**
+    `entry == [term |-> entryTerm, value |-> v]`
+
+*   **Current (New) Log Entry Structure (in `LeaderOrderRequest`):**
+    `entry == [term |-> entryTerm, value |-> v, payload |-> v]`
+
+    In this updated model:
+    *   `term`: The term in which the leader ordered the entry.
+    *   `value`: The original client request `v` (from the `Value` set), serving as the unique request identifier.
+    *   `payload`: The original client request `v` (from the `Value` set), serving as the actual data/payload content.
+
+**Impact of the Log Structure Change:**
+
+1.  **`LeaderOrderRequest`:** Modified to create log entries with the `[term, value, payload]` structure.
+2.  **`AppendEntries`:** Now implicitly sends these three-field records in the `mentries` field of `AppendEntriesRequest` messages, as it sources entries directly from the leader's log.
+3.  **`HandleAppendEntriesRequest`:** Modified to correctly process incoming three-field records.
+    *   When checking for existing entries, it compares `term` and `value` fields.
+    *   When appending a new entry, it uses the `receivedEntry.value` (the ID part) to match against its `pendingRequests` (which still stores raw `Value`s) and then appends the full `receivedEntry` (`[term, value, payload]`) to its log.
+
+This change ensures that the model's behavior, particularly the content of the replicated log and `AppendEntries` messages, aligns with the structure shown in the professor's example trace (e.g., `log = [ r1 |-> << [term |-> 2, value |-> "v1", payload |-> "v1"] >>, ...]`).
+
+The core HovercRaft data flow (Client -> Switch -> Server Buffers -> Leader Orders -> Replication) remains consistent, with the main adaptation being this more explicit log entry format. The model has been successfully checked with TLC using `MySpec`, and the generated traces confirm this behavior.
+
 
 ## Contributor
 *   **ovidiu-cristian**
