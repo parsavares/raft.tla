@@ -1,0 +1,1032 @@
+<<
+[
+ _TEAction |-> [
+   position |-> 1,
+   name |-> "Initial predicate",
+   location |-> "Unknown location"
+ ],
+ commitIndex |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> << >>,
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [r1 |-> <<>>, r2 |-> <<>>, r3 |-> <<>>],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 0,
+ messages |-> << >>,
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 2,
+   name |-> "SwitchClientRequest",
+   location |-> "line 411, col 5 to line 416, col 67 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> << >>,
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [r1 |-> <<>>, r2 |-> <<>>, r3 |-> <<>>],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 1,
+ messages |-> << >>,
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}, sw |-> {"v2"}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 3,
+   name |-> "SwitchDisseminate",
+   location |-> "line 421, col 5 to line 430, col 73 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> << >>,
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [r1 |-> <<>>, r2 |-> <<>>, r3 |-> <<>>],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 1,
+ messages |-> << >>,
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {"v2"}, r2 |-> {"v2"}, r3 |-> {"v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 4,
+   name |-> "SwitchClientRequest",
+   location |-> "line 411, col 5 to line 416, col 67 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> << >>,
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [r1 |-> <<>>, r2 |-> <<>>, r3 |-> <<>>],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> << >>,
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {"v2"}, r2 |-> {"v2"}, r3 |-> {"v2"}, sw |-> {"v1"}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 5,
+   name |-> "SwitchDisseminate",
+   location |-> "line 421, col 5 to line 430, col 73 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> << >>,
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [r1 |-> <<>>, r2 |-> <<>>, r3 |-> <<>>],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> << >>,
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {"v1", "v2"}, r2 |-> {"v1", "v2"}, r3 |-> {"v1", "v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 6,
+   name |-> "LeaderOrderRequest",
+   location |-> "line 448, col 5 to line 470, col 59 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> (<<1, 2>> :> [sentCount |-> 0, ackCount |-> 0, committed |-> FALSE]),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+  r2 |-> <<>>,
+  r3 |-> <<>> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> << >>,
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {"v2"}, r2 |-> {"v1", "v2"}, r3 |-> {"v1", "v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 7,
+   name |-> "LeaderOrderRequest",
+   location |-> "line 448, col 5 to line 470, col 59 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> ( <<1, 2>> :> [sentCount |-> 0, ackCount |-> 0, committed |-> FALSE] @@
+  <<2, 2>> :> [sentCount |-> 0, ackCount |-> 0, committed |-> FALSE] ),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r2 |-> <<>>,
+  r3 |-> <<>> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> << >>,
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {"v1", "v2"}, r3 |-> {"v1", "v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 8,
+   name |-> "MyNext",
+   location |-> "line 800, col 35 to line 800, col 63 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> ( <<1, 2>> :> [sentCount |-> 1, ackCount |-> 0, committed |-> FALSE] @@
+  <<2, 2>> :> [sentCount |-> 0, ackCount |-> 0, committed |-> FALSE] ),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r2 |-> <<>>,
+  r3 |-> <<>> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> ( [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      1 ),
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {"v1", "v2"}, r3 |-> {"v1", "v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 9,
+   name |-> "MyNext",
+   location |-> "line 800, col 35 to line 800, col 63 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> ( <<1, 2>> :> [sentCount |-> 2, ackCount |-> 0, committed |-> FALSE] @@
+  <<2, 2>> :> [sentCount |-> 0, ackCount |-> 0, committed |-> FALSE] ),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r2 |-> <<>>,
+  r3 |-> <<>> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> ( [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      1 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      1 ),
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {"v1", "v2"}, r3 |-> {"v1", "v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 10,
+   name |-> "MyNext",
+   location |-> "line 801, col 15 to line 803, col 86 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> ( <<1, 2>> :> [sentCount |-> 2, ackCount |-> 0, committed |-> FALSE] @@
+  <<2, 2>> :> [sentCount |-> 0, ackCount |-> 0, committed |-> FALSE] ),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r2 |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+  r3 |-> <<>> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> ( [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      1 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      1 ),
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {"v2"}, r3 |-> {"v1", "v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 11,
+   name |-> "MyNext",
+   location |-> "line 801, col 15 to line 803, col 86 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> ( <<1, 2>> :> [sentCount |-> 2, ackCount |-> 1, committed |-> FALSE] @@
+  <<2, 2>> :> [sentCount |-> 0, ackCount |-> 0, committed |-> FALSE] ),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r2 |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+  r3 |-> <<>> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 1, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> ( [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      1 ),
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 2, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {"v2"}, r3 |-> {"v1", "v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 12,
+   name |-> "AdvanceCommitIndex",
+   location |-> "line 703, col 5 to line 729, col 126 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> ( <<1, 2>> :> [sentCount |-> 2, ackCount |-> 1, committed |-> TRUE] @@
+  <<2, 2>> :> [sentCount |-> 0, ackCount |-> 0, committed |-> FALSE] ),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r2 |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+  r3 |-> <<>> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 1, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> ( [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      1 ),
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 2, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {"v2"}, r3 |-> {"v1", "v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 13,
+   name |-> "MyNext",
+   location |-> "line 800, col 35 to line 800, col 63 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> ( <<1, 2>> :> [sentCount |-> 2, ackCount |-> 1, committed |-> TRUE] @@
+  <<2, 2>> :> [sentCount |-> 1, ackCount |-> 0, committed |-> FALSE] ),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r2 |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+  r3 |-> <<>> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 1, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> ( [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 1,
+    mprevLogTerm |-> 2,
+    mentries |-> <<[term |-> 2, value |-> "v2", payload |-> "v2"]>>,
+    mcommitIndex |-> 1 ] :>
+      1 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      1 ),
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 2, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {"v2"}, r3 |-> {"v1", "v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 14,
+   name |-> "MyNext",
+   location |-> "line 801, col 15 to line 803, col 86 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 1, r2 |-> 1, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> ( <<1, 2>> :> [sentCount |-> 2, ackCount |-> 1, committed |-> TRUE] @@
+  <<2, 2>> :> [sentCount |-> 1, ackCount |-> 0, committed |-> FALSE] ),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r2 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r3 |-> <<>> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 1, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> ( [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 2 ] :>
+      1 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 1,
+    mprevLogTerm |-> 2,
+    mentries |-> <<[term |-> 2, value |-> "v2", payload |-> "v2"]>>,
+    mcommitIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      1 ),
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 2, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {"v1", "v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 15,
+   name |-> "MyNext",
+   location |-> "line 801, col 15 to line 803, col 86 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 1, r2 |-> 1, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> ( <<1, 2>> :> [sentCount |-> 2, ackCount |-> 1, committed |-> TRUE] @@
+  <<2, 2>> :> [sentCount |-> 1, ackCount |-> 0, committed |-> FALSE] ),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r2 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r3 |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 1, r3 |-> 0],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> ( [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 2 ] :>
+      1 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r3",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      1 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 1,
+    mprevLogTerm |-> 2,
+    mentries |-> <<[term |-> 2, value |-> "v2", payload |-> "v2"]>>,
+    mcommitIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 ),
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 2, r3 |-> 1],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {"v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 16,
+   name |-> "MyNext",
+   location |-> "line 801, col 15 to line 803, col 86 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 1, r2 |-> 1, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> ( <<1, 2>> :> [sentCount |-> 2, ackCount |-> 1, committed |-> TRUE] @@
+  <<2, 2>> :> [sentCount |-> 1, ackCount |-> 0, committed |-> FALSE] ),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r2 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r3 |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> ( [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 2 ] :>
+      1 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r3",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 1,
+    mprevLogTerm |-> 2,
+    mentries |-> <<[term |-> 2, value |-> "v2", payload |-> "v2"]>>,
+    mcommitIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 ),
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 2, r3 |-> 2],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {"v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 17,
+   name |-> "MyNext",
+   location |-> "line 800, col 35 to line 800, col 63 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 1, r2 |-> 1, r3 |-> 0],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> ( <<1, 2>> :> [sentCount |-> 2, ackCount |-> 1, committed |-> TRUE] @@
+  <<2, 2>> :> [sentCount |-> 2, ackCount |-> 0, committed |-> FALSE] ),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r2 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r3 |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> ( [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 2 ] :>
+      1 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r3",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 1,
+    mprevLogTerm |-> 2,
+    mentries |-> <<[term |-> 2, value |-> "v2", payload |-> "v2"]>>,
+    mcommitIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 1,
+    mprevLogTerm |-> 2,
+    mentries |-> <<[term |-> 2, value |-> "v2", payload |-> "v2"]>>,
+    mcommitIndex |-> 1 ] :>
+      1 ),
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 2, r3 |-> 2],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {"v2"}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+],
+[
+ _TEAction |-> [
+   position |-> 18,
+   name |-> "MyNext",
+   location |-> "line 801, col 15 to line 803, col 86 of module raftModelPerf_ParsaVARES_0231327200"
+ ],
+ commitIndex |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+ currentTerm |-> [r1 |-> 2, r2 |-> 2, r3 |-> 2],
+ entryCommitStats |-> ( <<1, 2>> :> [sentCount |-> 2, ackCount |-> 1, committed |-> TRUE] @@
+  <<2, 2>> :> [sentCount |-> 2, ackCount |-> 0, committed |-> FALSE] ),
+ leaderCount |-> [r1 |-> 1, r2 |-> 0, r3 |-> 0],
+ log |-> [ r1 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r2 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+  r3 |->
+      << [term |-> 2, value |-> "v1", payload |-> "v1"],
+         [term |-> 2, value |-> "v2", payload |-> "v2"] >> ],
+ matchIndex |-> [ r1 |-> [r1 |-> 0, r2 |-> 1, r3 |-> 1],
+  r2 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0],
+  r3 |-> [r1 |-> 0, r2 |-> 0, r3 |-> 0] ],
+ maxc |-> 2,
+ messages |-> ( [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r2",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 2 ] :>
+      1 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r3",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesResponse,
+    msource |-> "r3",
+    mdest |-> "r1",
+    msuccess |-> TRUE,
+    mmatchIndex |-> 2 ] :>
+      1 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r2",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 1,
+    mprevLogTerm |-> 2,
+    mentries |-> <<[term |-> 2, value |-> "v2", payload |-> "v2"]>>,
+    mcommitIndex |-> 1 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 0,
+    mprevLogTerm |-> 0,
+    mentries |-> <<[term |-> 2, value |-> "v1", payload |-> "v1"]>>,
+    mcommitIndex |-> 0 ] :>
+      0 @@
+  [ mterm |-> 2,
+    mtype |-> AppendEntriesRequest,
+    msource |-> "r1",
+    mdest |-> "r3",
+    mlog |->
+        << [term |-> 2, value |-> "v1", payload |-> "v1"],
+           [term |-> 2, value |-> "v2", payload |-> "v2"] >>,
+    mprevLogIndex |-> 1,
+    mprevLogTerm |-> 2,
+    mentries |-> <<[term |-> 2, value |-> "v2", payload |-> "v2"]>>,
+    mcommitIndex |-> 1 ] :>
+      0 ),
+ missingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}],
+ nextIndex |-> [ r1 |-> [r1 |-> 1, r2 |-> 2, r3 |-> 2],
+  r2 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1],
+  r3 |-> [r1 |-> 1, r2 |-> 1, r3 |-> 1] ],
+ pendingRequests |-> [r1 |-> {}, r2 |-> {}, r3 |-> {}, sw |-> {}],
+ state |-> [r1 |-> Leader, r2 |-> Follower, r3 |-> Follower],
+ votedFor |-> [r1 |-> Nil, r2 |-> "r1", r3 |-> "r1"],
+ voterLog |-> [r1 |-> [r1 |-> <<>>], r2 |-> <<>>, r3 |-> <<>>],
+ votesGranted |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}],
+ votesResponded |-> [r1 |-> {"r1"}, r2 |-> {}, r3 |-> {}]
+]
+>>
